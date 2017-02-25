@@ -90,11 +90,11 @@ z = z.T
 
 
 def map_feature(x1, x2):
-    '''
+    """
     Maps 2D features to quadratic features.
     Returns a new feature vector with more features, comprising of
     x1, x2, x1^2, x2^2, x1*x2, x1*x2^2, etc...
-    '''
+    """
     x1.shape = (x1.size, 1)
     x2.shape = (x2.size, 1)
     degree = 6  # Value to change the complexity default = 6, test = 2
