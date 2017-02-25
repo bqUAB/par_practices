@@ -1,3 +1,4 @@
+# Import NumPy
 import numpy as np
 # Load the synthetic dataset
 import pickle
