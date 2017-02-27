@@ -24,6 +24,7 @@ print m, len(B)
 m = "Size of the first dimension (columns) for C ="
 print m, len(C)
 
+
 m = "Shape of A ="
 print m, A.shape
 m = "Shape of B ="
