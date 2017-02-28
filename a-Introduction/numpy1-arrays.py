@@ -39,3 +39,39 @@ m = "Dimensions of B ="
 print m, B.ndim
 m = "Dimensions of C ="
 print m, C.ndim
+
+
+print(np.linspace(30, 39, 10))
+print(np.linspace(40, 50))
+
+x = np.arange(9).reshape((3, 3))
+print "x ="
+print(x)
+print "np.diag(x) returns:", np.diag(x)
+print "np.diag(x, k=1) returns:", np.diag(x, k=1)
+print "np.diag(x, k=-1) returns:", np.diag(x, k=-1)
+print "np.diag([1, 2, 3]) returns:"
+print(np.diag([1, 2, 3]))
+
+A = np.array([1, 2, 3])
+B = np.array([1.0, 2.0, 3.0])
+A.dtype, B.dtype
+
+C = np.array([4, 5, 6], dtype=float)
+print(C)
+
+A = np.random.randint(10, size=(4, 4))
+B = np.zeros([2, 2]).reshape([4, 1])
+# Append column
+A = np.append(A, B, axis=1)
+print(A)
+
+C = np.zeros([5, 1]).reshape([1, 5])
+# Append row
+print(np.append(A, C, axis=0))
+
+# Or
+A = np.random.randint(10, size=(4, 4))
+C = np.zeros([4, 1])
+# Append column
+print(np.append(A, C, axis=1))
