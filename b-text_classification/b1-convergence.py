@@ -30,20 +30,26 @@ def map_feature(x1, x2):
     return out
 
 
-def GradientDescent(x, y, max_iterations=2500, alpha=0.1):
+def GradientDescent(x, y, max_iterations=2000, alpha=0.1):
     m, n = x.shape  # number of samples, number of features
     # y must be a column vector
+    y0 = y
     y = y.reshape(m, 1)
     # initialize the parameters
     theta = np.ones(shape=(n, 1))
     # Repeat until convergence (or max_iterations)
-    iteration = 0
-    while iteration < max_iterations:
-        iteration += 1
+    i = 0  # iteration
+    t_accuracy = 0  # Training Accuracy
+    while t_accuracy <= 0.8 and i < max_iterations:
+        i += 1
         h = sigmoid(np.dot(x, theta))
         error = (h-y)
         gradient = np.dot(x.T, error) / m
         theta = theta - alpha*gradient
+        H = [classifyVector(x[i2, :], theta) for i2 in range(x.shape[0])]
+        t_accuracy = float(np.sum(H == y0)) / y0.shape[0]
+
+    print "Iterations done:", i
     return theta
 
 
@@ -69,7 +75,7 @@ x = np.ones(shape=(X.shape[0], 1))
 x = np.append(x, X, axis=1)  # append as columns -> axis=1
 
 features = map_feature(X[:, 0], X[:, 1])
-features.shape
+print(features.shape)
 
 # Logistic Regression gradient descent optimization
 w = GradientDescent(features, y)
