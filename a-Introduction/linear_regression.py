@@ -35,7 +35,3 @@ ax.set_zlabel('Price($)')
 ax.set_title('House Prices')
 
 plt.show()
-
-# prepare x with a column of ones (this is the x_0 for the bias term)
-x = ones(shape=(X.shape[0], 2))
-x[:, 1] = X[:, 0]  # discard the 2nd feature (number of rooms)
