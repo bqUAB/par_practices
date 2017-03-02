@@ -68,6 +68,7 @@ def classifyVector(X, theta):
 # Load the synthetic data set
 with open('./PR1data1.pkl', 'rb') as f:
     (X, y) = pickle.load(f)
+print X.shape, y.shape
 
 # Append the x_0 column (for the bias term theta_0)
 x = np.ones(shape=(X.shape[0], 1))
@@ -76,7 +77,6 @@ x = np.append(x, X, axis=1)  # append as columns -> axis=1
 features = map_feature(X[:, 0], X[:, 1])
 
 # Logistic Regression gradient descent optimization
-# w = GradientDescent(x,y,max_iterations,learning_rate,training_accuracy)
 w = GradientDescent(features, y, 1000, 0.2, 0.8)
 
 H = [classifyVector(features[i, :], w) for i in range(features.shape[0])]
