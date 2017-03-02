@@ -32,26 +32,24 @@ def map_feature(x1, x2):
     return out
 
 
-def GradientDescent(x, y, max_iterations=2500, alpha=0.1, accuracy=0.83):
+def GradientDescent(x, y, max_iterations=2500, alpha=0.1):
+
     m, n = x.shape  # number of samples, number of features
+
     # y must be a column vector
-    y0 = y
     y = y.reshape(m, 1)
+
     # initialize the parameters
     theta = np.ones(shape=(n, 1))
+
     # Repeat until convergence (or max_iterations)
-    i = 0  # iteration
-    t_accuracy = 0  # Training Accuracy
-    while t_accuracy <= accuracy and i < max_iterations:
-        i += 1
+    for iteration in range(max_iterations):
         h = sigmoid(np.dot(x, theta))
         error = (h-y)
         gradient = np.dot(x.T, error) / m
         theta = theta - alpha*gradient
-        H = [classifyVector(x[i2, :], theta) for i2 in range(x.shape[0])]
-        t_accuracy = float(np.sum(H == y0)) / y0.shape[0]
 
-    print "Iterations done:", i
+    print "Number of iterations:", iteration
     return theta
 
 
@@ -61,7 +59,7 @@ def classifyVector(X, theta):
     and returns the predicted label of x.
     """
     prob = sigmoid(sum(np.dot(X, theta)))
-    if prob > 0.5:
+    if prob > 0.6:
         return 1.0
     else:
         return 0.0
@@ -91,24 +89,6 @@ for i in range(test_features.shape[0]):
 
 print new_train_features.shape, new_test_features.shape
 
-# Visualize the histograms of positive/negative samples
-
-plt.subplot(2, 2, 1)
-plt.imshow(np.reshape(train_features[1, :], [32, 32]), cmap=plt.cm.gray)
-
-plt.subplot(2, 2, 2)
-plt.imshow(np.reshape(train_features[5981, :], [32, 32]), cmap=plt.cm.gray)
-
-bins = [0, 1, 2, 3, 4, 5, 6, 7]  # 8 bits making each pixel grayscale value
-
-plt.subplot(2, 2, 3)
-plt.bar(bins, new_train_features[1, :], align='center')
-
-plt.subplot(2, 2, 4)
-plt.bar(bins, new_train_features[5981, :], align='center')
-
-plt.show()
-
 # print train_labels[1],train_labels[5981]
 
 # Logistic Regression gradient descent optimization
@@ -130,6 +110,14 @@ print "Test Accuracy : ", (
 cm = confusion_matrix(test_labels, H)
 print 'Confusion matrix:'
 print (cm)
+
+# Precision
+precision = float(cm[1, 1]) / float((cm[1, 1] + cm[0, 1]))
+print "Precision:", precision
+
+# Recall
+recall = float(cm[1, 1]) / float((cm[1, 0] + cm[1, 1]))
+print "Recall:", recall
 
 # Plot confusion matrix
 plt.matshow(cm)
