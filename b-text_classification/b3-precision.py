@@ -59,7 +59,7 @@ def classifyVector(X, theta):
     and returns the predicted label of x.
     """
     prob = sigmoid(sum(np.dot(X, theta)))
-    if prob > 0.6:
+    if prob > 0.9:
         return 1.0
     else:
         return 0.0
