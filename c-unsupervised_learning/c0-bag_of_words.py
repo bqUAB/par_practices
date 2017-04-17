@@ -1,3 +1,7 @@
+"""Feature Learning.
+
+Feature Learning with K-means clustering. Nearest Neighbours, and Bag of Words.
+"""
 import pickle
 import gzip
 import numpy as np
@@ -15,12 +19,16 @@ print("test_images shape" + str(test_images.shape))
 
 # Show a few samples of the positive and negative classes.
 num_text = sum(train_labels == 0)
+# The dataset is symmetric which means that half of data is positive.
+# That means that the following code will also work:
+# ** np.random.randint(train_labels.shape[0]/2, train_labels.shape[0]), :],
 fig = plt.figure()
 for i in range(1, 6):
     ax = fig.add_subplot(2, 5, i)
     ax.imshow(
         np.reshape(
             train_images[
+                # np.random.randint(0, train_labels.shape[0]/2), :],
                 np.random.randint(0, num_text), :],
             [32, 32]),
         cmap=plt.cm.gray)
@@ -30,6 +38,7 @@ for i in range(1, 6):
     ax.imshow(
         np.reshape(
             train_images[
+                # can be replaced with **
                 np.random.randint(num_text, train_labels.shape[0]), :],
             [32, 32]),
         cmap=plt.cm.gray)
@@ -82,7 +91,7 @@ sigma = patches.std(axis=1) + 0.0001
 # subtract the mean and divide by the standard deviation
 patches = (patches - mu.reshape([-1, 1])) / (sigma.reshape([-1, 1]))
 
-# Set NaN values (if exist) to 0
+# Set NaN (not a number) values (if exist) to 0
 w = np.isnan(patches)
 patches[w] = 0
 
