@@ -22,6 +22,7 @@ num_text = sum(train_labels == 0)
 # The dataset is symmetric which means that half of data is positive.
 # That means that the following code will also work:
 # ** np.random.randint(train_labels.shape[0]/2, train_labels.shape[0]), :],
+
 fig = plt.figure()
 for i in range(1, 6):
     ax = fig.add_subplot(2, 5, i)
@@ -51,7 +52,6 @@ for i in range(1, 6):
 
 # reshape images to 32x32 and scale values to (0, 1)
 images = train_images.reshape((-1, 32, 32)).astype('float32') / 255
-
 print("Images shape " + str(images.shape))
 
 # Collect image patches with sliding window (8x8) in each train image sample
@@ -196,8 +196,8 @@ with gzip.open('./BoW_train_features.pklz', 'wb') as f:
     pickle.dump((train_labels, train_features), f, pickle.HIGHEST_PROTOCOL)
 
 # Extract features from test images
-images = test_images.reshape(-1, 32, 32).astype('float32') / 255
-test_features = np.zeros(images.shape[0], visual_words.shape[0])
+images = test_images.reshape((-1, 32, 32)).astype('float32') / 255
+test_features = np.zeros((images.shape[0], visual_words.shape[0]))
 
 for i in range(0, images.shape[0]):  # for each image
     # Do sliding window (8x8) in each image to extract patches
