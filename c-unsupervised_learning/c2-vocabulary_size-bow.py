@@ -129,7 +129,7 @@ train_patches = np.dot(train_patches, pca)  # perform pca whitening
 
 # ----------------------------------------------------
 # K-means clustering to learn K visual_words from data
-NUM_VISUAL_WORDS = 64
+NUM_VISUAL_WORDS = 256
 
 km = KMeans(n_clusters=NUM_VISUAL_WORDS, max_iter=50, n_init=1, verbose=False)
 km.fit(train_patches)
@@ -212,13 +212,13 @@ for i in range(0, test_img.shape[0]):  # for each test image
     test_features[i, :] = test_features[i, :] / max(test_features[i, :])
 
 # Save your test features
-with gzip.open('./BoW-128-8.pklz', 'wb') as f:
+with gzip.open('./BoW-256-8.pklz', 'wb') as f:
     pickle.dump(
         (train_labels, train_features, test_labels, test_features),
         f, pickle.HIGHEST_PROTOCOL)
 
 # Import the train/test data (raw image pixels).
-with gzip.open('./BoW-128-8.pklz', 'rb') as f:
+with gzip.open('./BoW-256-8.pklz', 'rb') as f:
     (train_labels, train_images, test_labels, test_images) = pickle.load(f)
 
 print("train_images shape = " + str(train_images.shape))
