@@ -194,18 +194,18 @@ H_bowTr = ([
 
 # Calculate classification Accuracy in test data
 H_bowTe = ([
-    classifyVector(prepro_test_images[i, :], w_bow, 0.5)
-    for i in range(prepro_test_images.shape[0])])
+    classifyVector(test_images[i, :], w_bow, 0.5)
+    for i in range(test_images.shape[0])])
 
 # confusion matrix on test data
-cm_bow = confusion_matrix(prepro_test_labels, H_bowTe)
+cm_bow = confusion_matrix(test_labels, H_bowTe)
 print 'Unprocessed BoW Confusion matrix:'
 print (cm_bow)
 
 print "Unprocessed BoW Train Accuracy:", (str(float(
-    np.sum(H_bowTr == prepro_train_labels)) / prepro_train_labels.shape[0]))
+    np.sum(H_bowTr == train_labels)) / train_labels.shape[0]))
 print "Unprocessed BoW Test Accuracy : ", (str(float(
-    np.sum(H_bowTe == prepro_test_labels)) / prepro_test_labels.shape[0]))
+    np.sum(H_bowTe == test_labels)) / test_labels.shape[0]))
 
 # Plot BoW confusion matrix
 plt.matshow(cm_bow)
